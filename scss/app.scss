@@ -1,0 +1,15 @@
+// VIEWS
+@import "login";
+@import "event-admin-home";
+@import "event-admin-profile";
+@import "admin-question";
+@import "admin-create-question";
+@import "admin-result-question";
+@import "admin-view-question";
+
+// DEFAULT STYLE
+html, body, ng-view { height: 100%; margin:0; padding:0; }
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak { display: none !important; }
+
+footer { height: 60px; bottom: 0; background-color: #E4E4E4; width: 100%; text-align: center;padding: 10px; color: #999999 }

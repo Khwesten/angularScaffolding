@@ -1,0 +1,37 @@
+<div id="login">
+    <div class="col-md-6"></div>
+    <div class="col-md-6">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+            <div class="box" style="text-align: center">
+                <h2>Default scaffolding</h2>
+                <img ng-src="{{logo}}" style="margin: 40px 0" width="150px;"/>
+                <form role="form" ng-submit="doLogin()">
+                    <div class="input-group form-group">
+                        <span class="input-group-addon" id="basic-addon1" style="background-color: #fff;"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                        <input id="login-email" type="email" name="email" class="form-control"
+                               ng-model="login.username" aria-describedby="basic-addon1" placeholder="Seu email" required/>
+                    </div>
+                    <div class="input-group form-group">
+                        <span class="input-group-addon" id="basic-addon2" style="background-color: #fff;"><i class="fa fa-lock" style="margin-left: 3px;" aria-hidden="true"></i></span>
+                        <input id="login-password" type="password" name="password" class="form-control"
+                               ng-model="login.password" aria-describedby="basic-addon2" placeholder="Sua senha" required/>
+                    </div>
+                    <div ng-show="invalid" class="alert alert-danger" role="alert">Email e/ou senha inválidos</div>
+                    <div class="form-group">
+                        <input id="login-submit" name="submit" type="submit" class="btn btn-primary col-xs-12"
+                               value="Entrar">
+                    </div>
+                </form>
+                <div style="clear: both"></div>
+                <div style="margin: 40px 0">
+                    <a href="/#forgot-password">Esqueci a senha</a>
+                </div>
+                <small>Powered by Khwesten™</small>
+            </div>
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<div id="modal-adm-change-password">
+  <i class="glyphicon glyphicon-remove" ng-click="$dismiss()"></i>
+    <div class="modal-body">
+      <div class="row">
+        <div class="text-center" ng-hide="userVO.pass">
+          <span>Tem certeza que deseja remover o colaborador?</span>
+          <br />
+          <button type="button" class="btn btn-create btn-no" ng-click="$dismiss()">NÃO</button>
+          <button type="button" class="btn btn-create btn-yes" ng-click= "confirmRemoveCollaborator();">SIM</button>
+        </div>
+      </div>
+    </div>
+</div>

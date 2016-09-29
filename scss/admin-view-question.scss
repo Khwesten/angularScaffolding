@@ -1,0 +1,32 @@
+#adm-view-question {
+  min-height: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-color: #EEEEEE;
+
+  hr { margin: 0 }
+
+  .alert-hability:hover { color: #a94442; background-color: #f2dede; border-color: #ebccd1; }
+
+  .btn {
+    border-radius: 0;
+  }
+
+  .container {
+    background-color: white;
+    .alternatice-edit { padding: 10px }
+    .alternatice-edit:hover { background-color: #2e6da4; color: white }
+    .exclude-column:hover { background-color: brown; color: white }
+    .edit-column:hover { background-color: #2e6da4; color: white }
+    //.alternative { padding-top: 10px }
+  }
+}
+.load-adm-view-question{
+  width: 100%;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.77);
+  height: 100%;
+  padding-top: 25%;
+  position: absolute;
+  z-index: 9;
+}

@@ -1,0 +1,17 @@
+#adm-result-question {
+  min-height: 100%;
+  padding-top: 50px;
+  background-color: #EEEEEE;
+
+  .result-questions {
+    padding: 10px;
+    p { font-size: 12px; font-weight: bold }
+  }
+  .result-questions:hover {
+    background-color: #e9ebec;
+  }
+
+  .container {
+    background-color: white;
+  }
+}

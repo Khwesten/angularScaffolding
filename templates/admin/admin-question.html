@@ -1,0 +1,255 @@
+<header-directive></header-directive>
+<div id="adm-question">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Base de questões</h1>
+                <!-- <a href="/#create-question" class="btn btn-default btn-register pull-right">Nova questão</a> -->
+            </div>
+        </div>
+        <div class="clearfix">
+            <div ng-class="row" style="background-color: white; padding: 20px; margin-bottom: 50px">
+                <div ng-class="searchClicked ? 'col-xs-3' : 'col-xs-12'">
+                    <h4 class="col-lg-12 text-left">Pesquisa básica</h4>
+                    <div class="clearfix"></div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="">Enunciado</label>
+                            <input class="form-control" ng-model="dataToSearch.statement"/>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div ng-class="searchClicked ? 'col-lg-12' : 'col-lg-4'">
+                        <div class="form-group">
+                            <label for="">Nível de ensino</label>
+                            <select class="form-control" ng-change="changeContexts()" ng-model="indexSegment">
+                                <option value="">Selecione o nível de ensino</option>
+                                <option ng-selected="dataToSearch.segment == $index"
+                                        ng-repeat="segment in segments track by $index" value="{{$index}}">
+                                    {{segment.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div ng-class="searchClicked ? 'col-lg-12' : 'col-lg-4'">
+                        <div class="form-group">
+                            <label for="">Grande área</label>
+                            <select ng-disabled="indexSegment == null" class="form-control" ng-change="changeDisciplines()" ng-model="indexContext">
+                                <option ng-hide="indexSegment != null" ng-selected="indexSegment == null" value="">
+                                    Selecione o nível de ensino
+                                </option>
+                                <option ng-selected="indexSegment != null" value="">
+                                    Selecione a gande área
+                                </option>
+                                <option ng-selected="dataToSearch.context == $index"
+                                        ng-repeat="context in contexts track by $index" value="{{$index}}">
+                                    {{context.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div ng-class="searchClicked ? 'col-lg-12' : 'col-lg-4'">
+                        <div class="form-group">
+                            <label for="">Disciplina</label>
+                            <select ng-disabled="indexContext == '' || indexContext == null" class="form-control" ng-model="dataToSearch.idDomain" ng-change="searchTopics()">
+                                <option ng-hide="indexContext != null" ng-selected="!indexSegment">Selecione o nível de ensino</option>
+                                <option ng-hide="indexContext != null" ng-selected="indexSegment != null || indexContext == ''">Selecione a grande área</option>
+                                <option ng-selected="indexSegment === 0 && indexContext === 0" value="">Selecione a disciplina</option>
+                                <option ng-selected="dataToSearch.idDomain == discipline.id"
+                                        ng-repeat="discipline in disciplines track by $index" value="{{discipline.id}}">
+                                    {{discipline.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 text-center">
+                        <a ng-click="showAdvancedSearch()" class="pointer text-center">Ativar pesquisa avançada
+                            <i ng-show="!advancedSearch" class="fa fa-chevron-down" aria-hidden="true"></i>
+                            <i ng-show="advancedSearch" class="fa fa-chevron-up" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <br>
+                    <div ng-show="advancedSearch">
+                        <div ng-class="searchClicked ? 'col-lg-12' : 'col-lg-5'">
+                            <div class="form-group">
+                                <label for="">Tópicos</label>
+                                <select class="form-control" ng-model="dataToSearch.idTopic">
+                                    <option selected ng-if="topics.length == 0">Selecione uma disciplina</option>
+                                    <option value=""></option>
+                                    <option ng-selected="dataToSearch.idTopic == topic.id"
+                                            ng-repeat="topic in topics track by $index" value="{{topic.id}}">
+                                        {{topic.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <!--<div ng-class="searchClicked ? 'col-lg-12' : 'col-lg-4'">-->
+                            <!--<div class="form-group">-->
+                                <!--<label for="">Fonte</label>-->
+                                <!--<tags-input ng-model="sourceSelected" placeholder="Digite a fonte desejada para busca"-->
+                                            <!--max-tags="1">-->
+                                    <!--<auto-complete source="sources" load-on-focus="true" load-on-down-arrow="true"-->
+                                                   <!--load-on-empty="true"></auto-complete>-->
+                                <!--</tags-input>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <div ng-class="searchClicked ? 'col-lg-12' : 'col-lg-3'">
+                            <div class="form-group">
+                                <label for="">Dificuldade</label>
+                                <select class="form-control" ng-model="dataToSearch.difficulty">
+                                    <option selected value="">Selecione uma dificuldade</option>
+                                    <option ng-selected="dataToSearch.difficulty == -1" value="-1">Sem dificuldade
+                                        cadastrada
+                                    </option>
+                                    <option ng-selected="dataToSearch.difficulty == 0" value="0">Fácil</option>
+                                    <option ng-selected="dataToSearch.difficulty == 1" value="1">Médio</option>
+                                    <option ng-selected="dataToSearch.difficulty == 2" value="2">Difícil</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!--<div class="clearfix"></div>-->
+                        <div ng-class="searchClicked ? 'col-lg-12' : 'col-lg-2'">
+                            <div class="form-group">
+                                <label for="">Dicas</label>
+                                <select class="form-control" ng-model="dataToSearch.hint">
+                                    <option value=""></option>
+                                    <option ng-selected="dataToSearch.hint == 'true'" value="true">Sim</option>
+                                    <option ng-selected="dataToSearch.hint == 'false' && dataToSearch.hint != undefined"
+                                            value="false">Não
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div ng-class="searchClicked ? 'col-lg-12' : 'col-lg-2'">
+                            <div class="form-group">
+                                <label for="">Revisada</label>
+                                <select class="form-control" ng-model="dataToSearch.revised">
+                                    <option value=""></option>
+                                    <option value="true">Sim</option>
+                                    <option value="false">Não</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div ng-class="searchClicked ? 'col-lg-12' : 'col-lg-2'">
+                            <div class="form-group">
+                                <label for="">Resolução</label>
+                                <select class="form-control" ng-model="dataToSearch.resolution">
+                                    <option value=""></option>
+                                    <option ng-selected="dataToSearch.resolution == 'true'" value="true">Sim</option>
+                                    <option ng-selected="dataToSearch.resolution == 'false' && dataToSearch.resolution != undefined"
+                                            value="false">Não
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <!--<div class="clearfix"></div>-->
+                        <div ng-class="searchClicked ? 'col-lg-12' : 'col-lg-3'">
+                            <div class="form-group">
+                                <label for="">Competência</label>
+                                <select class="form-control" ng-model="dataToSearch.competence"
+                                        ng-change="changeCompetence()">
+                                    <option selected ng-if="!indexSegment">Selecione o nível de ensino</option>
+                                    <option selected ng-if="!indexContext && indexSegment">Selecione a grande área</option>
+                                    <option ng-selected="dataToSearch.competence == 'all'" value="all"
+                                            selected ng-if="indexContext && indexSegment" >Todas as habilidade</option>
+                                    <option ng-selected="dataToSearch.competence == $index"
+                                            ng-repeat="competence in competences track by $index" value="{{$index}}">
+                                        {{competence.name + ' - ' + competence.description}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div ng-class="searchClicked ? 'col-lg-12' : 'col-lg-7'">
+                            <div class="form-group">
+                                <label for="">Habilidades</label>
+                                <select class="form-control" ng-model="dataToSearch.idSkill" ng-change="changeAbility()">
+                                    <option selected ng-if="!dataToSearch.competence">Selecione a competência</option>
+                                    <option selected ng-if="dataToSearch.competence" value="">Selecione uma habilidade</option>
+                                    <option ng-selected="dataToSearch.idSkill == skill.id" ng-repeat="skill in skills"
+                                            value="{{skill.id}}">
+                                        {{skill.name + ' - ' + skill.description}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!--<div class="col-lg-12">-->
+                        <!--<div class="form-group">-->
+                            <!--<label for="">Enunciado</label>-->
+                            <!--<input class="form-control" ng-model="dataToSearch.statement"/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <br>
+                    <div class="text-center">
+                        <button ng-disabled="!dataToSearch.idDomain && !dataToSearch.statement" class="btn btn-new" ng-click="search()">Pesquisar
+                        </button>
+                        <a ng-click="clearFields()" class="btn btn-new">Limpar campos</a>
+                    </div>
+                </div>
+                <div ng-show="searchClicked" class="col-xs-9">
+                    <h4>Resultado da pesquisa</h4>
+                    <div ng-if="questions.problems.length == 0" class="col-lg-12 text-center" style="color: darkred">
+                        A pesquisa não retornou nenhum resultado!
+                    </div>
+                    <a ng-repeat="question in questions.problems track by $index" class="text-decoration-none"
+                       ng-href="#view-question/{{question.idContext}}/{{question.idDomain}}/{{question.id}}" ng-click="generateNext($index)">
+                        <div class="result-questions pointer">
+                            <strong><em>Questão {{$index+1 + (dataToSearch.limit * (dataToSearch.page-1))}} - {{question.id}}</em></strong>
+                            <br>
+                            <br>
+                            <div>
+                                <div id="statement-{{question.id}}" class="truncate"
+                                     ng-bind-html="sce.trustAsHtml(question.statement)"
+                                     style="height: 90px; overflow: hidden;">
+                                </div>
+                                <div class="gradient-statement" style="">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="clearfix"></div>
+                            <br>
+                            <div class="col-xs-3 text-center">
+                                <p>
+                                    HABILIDADES
+                                    <i ng-class="question.hasSkills ? 'fa-check-circle' : 'fa-times-circle'" class="fa"
+                                       aria-hidden="true"></i>
+                                </p>
+                            </div>
+                            <div class="col-xs-3 text-center">
+                                <p>
+                                    TÓPICOS
+                                    <i ng-class="question.hasTopic ? 'fa-check-circle' : 'fa-times-circle'" class="fa"
+                                       aria-hidden="true"></i>
+                                </p>
+                            </div>
+                            <div class="col-xs-3 text-center">
+                                <p>
+                                    DICAS
+                                    <i ng-class="question.hasHints ? 'fa-check-circle' : 'fa-times-circle'" class="fa"
+                                       aria-hidden="true"></i>
+                                </p>
+                            </div>
+                            <div class="col-xs-3 text-center">
+                                <p>
+                                    RESOLUÇÃO
+                                    <i ng-class="question.hasResolution ? 'fa-check-circle' : 'fa-times-circle'"
+                                       class="fa"
+                                       aria-hidden="true"></i>
+                                </p>
+                            </div>
+                            <div class="clearfix"></div>
+                            <hr>
+                        </div>
+                    </a>
+                    <div class="text-center">
+                        <ul uib-pagination boundary-links="true" total-items="numberOfPages" ng-change="changePage()"
+                            ng-model="paginationPage" class="pagination-sm" items-per-page="1" rotate="false"
+                            force-ellipses="true" max-size="10"
+                            previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>

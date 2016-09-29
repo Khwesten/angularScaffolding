@@ -1,0 +1,7 @@
+<div class="modal-header">
+    <span>Deseja excluir a solução?</span>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-create" style="width: 125px;margin-top: 0;background-color: silver;border: silver;" ng-click="$dismiss()" ng-disabled="load">Não</button>
+    <button type="submit" class="btn btn-create" style="width: 125px;margin-top: 0;" ng-click="deleteProject()" ng-disabled="load">{{load ? 'Carregando ...' : 'Sim'}}</button>
+</div>

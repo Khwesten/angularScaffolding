@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7" ng-app="App"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8" ng-app="App"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9" ng-app="App"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" ng-app="App"> <!--<![endif]-->
+<head>
+    <title>Default scaffolding</title>
+    <link rel="icon" href="http://meututor.com.br/wp-content/themes/theme55027/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="./lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./lib/components-font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="./dist/css/appstyle.min.css">
+    <meta charset="UTF-8">
+</head>
+<body>
+<!-- GLOBAL LOAD -->
+<div style="width: 100%;overflow: hidden;height: 100%;background: #efefef;" class="load-page" ng-controller="app">
+    <img src="./img/load_gif.gif" alt="" width="100%"/>
+</div>
+
+<!-- GLOBAL ALERTS -->
+<div ng-cloak class="alert-box fadeInDownBig" ng-show="alerts.length > 0" ng-controller="app">
+    <uib-alert ng-repeat="alert in alerts" dismiss-on-timeout="{{alert.timeout}}" type="{{alert.type}}" close="closeAlert($index)">
+        {{alert.msg}}
+    </uib-alert>
+</div>
+
+<ng-view></ng-view>
+
+<!-- lib -->
+<script type="text/javascript" src="./dist/js/lib.min.js"></script>
+<!-- app -->
+<script type="text/javascript" src="./dist/js/app.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<div id="fiscal-profile" ng-controller="FiscalProfileCtrl">
+	<div class="container" style="text-align: center;">
+        <h2 class="page-title">Meu Perfil</h2>
+        <div class="col-lg-12 col-md-12">
+            <div class="col-lg-2 col-md-2"></div>
+            <div class="col-lg-8 col-md-8 btn-back">
+            	<a href="/#home">
+            		<span class="pointer"><i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;VOLTAR PARA A PÁGINA PRINCIPAL</span>
+        		</a>
+    		</div>
+            <div class="col-lg-2 col-md-2"></div>
+        </div>
+        <div class="col-lg-12 col-md-12">
+            <div class="col-lg-2 col-md-2"></div>
+            <div class="col-lg-8 col-md-8">
+                <form role="form" ng-submit="updateUser()" style="text-align: left;">
+                    <label>NOME</label>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1" style="background-color: #fff;"><i class="fa fa-user" aria-hidden="true"></i></span>
+                        <input ng-model="user.name" type="text" class="form-control" placeholder="Nome Completo" aria-describedby="basic-addon1" required="true">
+                    </div>
+                    <label>EMAIL</label>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon2" style="background-color: #fff;"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                        <input ng-model="user.email" type="email" class="form-control" placeholder="Email" aria-describedby="basic-addon2" required="true">
+                    </div>
+                    <label>TELEFONE</label>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon4" style="background-color: #fff;"><i class="fa fa-phone" aria-hidden="true"></i></i></span>
+                        <input ng-model="user.phone" type="phone" class="form-control" placeholder="Telefone" aria-describedby="basic-addon4" required="true" ui-br-phone-number>
+                    </div>
+                    <label>SENHA</label>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon4" style="background-color: #fff;"><i class="glyphicon glyphicon-lock" aria-hidden="true"></i></i></span>
+                        <input type="password" class="form-control" placeholder="" aria-describedby="basic-addon4" style="width: 70%;" value="******" disabled>
+                        <button ng-click="openChangePass()" style="width: 30%;height: 34px;">Clique para alterar a senha</button>
+                    </div>
+                   
+                    <div ng-show="registeredUser" class="alert alert-danger" role="alert">Usuário já existente com esse email!</div>
+
+                    <div class="clb-form-btn">
+                    	
+                        <button id="collaborator-register-submit" name="submit" type="submit" class="btn btn-primary clb-btn">SALVAR MODIFICAÇÕES</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-2 col-md-2"></div>
+        </div>
+    </div>
+</div>

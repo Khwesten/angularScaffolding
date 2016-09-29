@@ -1,0 +1,68 @@
+#fiscal-home{
+	min-height: 100%;
+    display: inline-block;
+    width: 100%;
+	background-color: #EEEEEE;
+
+	h1 { font-weight: 900; margin: 40px 0px; font-size: 50px }
+
+	.search-line { margin: 20px 0 }
+	.btn{ 
+		border-radius: 0; 
+		width: 100%;
+		height: 100%;
+	}
+	.btn-free{
+		background-color: #23ad88;
+		color: #FFF;
+	}
+	.btn-free:hover{
+		background-color: #b44461;
+	}
+	.btn-bloqued{
+		background-color: #b44461;
+		color: #FFF;
+	}
+	.btn-bloqued:hover{
+		background-color: #23ad88;
+	}
+	.col-md-3{
+    	padding-top: 8px;
+    	span{
+		    letter-spacing: 1px;
+		    font-weight: 300;
+		    margin-right: 10px;
+			font-size: 10px;
+    	}
+	}
+
+	.col-md-3.button-grid { padding: 0;}
+	.btn-register{ background-color: #EEE; border-radius: 30px; }
+	.btn-register:hover{ background-color: #CCC !important; color: #FFF; }
+	.search-query {
+		padding-right: 3px;
+		padding-left: 10px;
+		margin-bottom: 0;
+		-webkit-border-radius: 3px;
+		-moz-border-radius: 3px;
+		border-radius: 30px;
+		width: 90%;
+		display: inline;
+		margin-left: 10px;
+	}
+	.col-md-3.text-right.no-padding-right {
+    	padding: 0 0 0 20px;
+    	button{
+    		background-color: #23ad88;
+			color: #FFF;
+    	}
+	}
+	.box {
+		margin-top: 10px;
+		font-weight: bold;
+		.line-test+.line-test {
+			border-top: 0.5px solid #E4E4E4;
+		}
+		.line-test { padding: 10px 0px; text-transform: uppercase }
+	}
+}

@@ -1,0 +1,38 @@
+<div id="fiscal-home" ng-controller="FiscalHomeCtrl">
+	<div class="container">
+	    <div class="text-center"><h1>Olá, {{user.name}}!</h1></div>
+
+	    <div class="row search-line">
+	        <div class="col-md-5 no-padding-left" style="padding-top: 5px">SOLICITAÇÕES</div>
+	        <div class="col-md-4"></div>
+	        <div class="col-md-3 text-right no-padding-right">
+	            <button ng-click="releaseAll()" class="btn btn-default btn-register">
+	                LIBERAR TODAS AS PROVAS
+	            </button>
+	        </div>
+	    </div>
+	    <div class="row box" ng-repeat="e in exams">
+	    	<div class="col-md-3">{{e.student.name}} - {{e.externalId}}</div>
+	    	<div class="col-md-3 truncate">
+	    		<span>CONCURSO</span>
+	    		{{e.contest.name}}
+	    	</div>
+			<div class="col-md-3">
+				<span>DATA DE SOLICITAÇÃO</span>
+				{{e.updateDate | date : 'dd/MM/yyyy'}}
+			</div>
+	    	<div class="col-md-3 button-grid">
+	    		<button type="button" class="btn" ng-mouseover="data = e.authorizedToTakeTheTest ? 'BLOQUEAR PROVA' : 'LIBERAR PROVA'"
+						ng-mouseleave="data = e.authorizedToTakeTheTest ? 'LIBERADO PARA PROVA' : 'BLOQUEADO PARA PROVA'"
+						ng-init="data = e.authorizedToTakeTheTest ? 'LIBERADO PARA PROVA' : 'BLOQUEADO PARA PROVA'"
+						ng-click="data = allowOrBlockEvaluation(e)" ng-class="{true : 'btn-free', false : 'btn-bloqued'}[e.authorizedToTakeTheTest]">
+	    				{{data}}
+				</button>
+    		</div>
+	    </div>
+	</div>
+	<footer style="height: 40px; position: absolute; bottom: 0; background-color: #E4E4E4; width: 100%; text-align: center;
+	padding: 10px; color: #999999">
+	    <p>GRUPO SEB - Sistema Educacional Brasileiro</p>
+	</footer>
+</div>

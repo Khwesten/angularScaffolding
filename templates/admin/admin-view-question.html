@@ -1,0 +1,275 @@
+<div class="load-adm-view-question" ng-show="load">
+  <img src="./img/7.gif" alt="" />
+</div>
+<header-directive></header-directive>
+<div id="adm-view-question">
+    <div class="container" style="background-color: transparent">
+        <span ng-click="back()" class="pointer">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;VOLTAR PARA RESULTADO DE PESQUISA
+        </span>
+        <span ng-click="next()" class="pointer pull-right">
+            PROXIMA QUESTÃO&nbsp;&nbsp;&nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </span>
+    </div>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6"><h1>Questão - {{question.id}}</h1></div>
+            <div class="col-lg-6 text-right" style="padding-top: 15px">
+                <h4>
+                    Questão revisada: <input ng-model="question.revised" ng-change="changeRevised()" type="checkbox"/>
+                </h4>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 40px">
+            <div ng-class="skillEdit ? 'col-lg-4' : 'col-lg-12'">
+                <strong>Tópicos</strong> <i class="fa fa-pencil-square-o pointer" aria-hidden="true"
+                                            ng-click="skillEdit = (skillEdit) ? false : true"></i>
+                <br>
+                <div ng-show="skillEdit">
+                    <br>
+                    <select class="form-control" ng-model="topicToAdd" ng-change="addTopic()">
+                        <option ng-repeat="topic in topics track by $index" ng-value="$index">{{topic.name}}</option>
+                    </select>
+                    <br>
+                </div>
+                <div class="clearfix"></div>
+                <br>
+                <div ng-repeat="topic in originQuestion.topics track by $index">
+                    <div id="hability-{{topic.id}}" class="alert alert-success alert-dismissable alert-hability">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                                ng-click="removeTopic($index)">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{topic.name}}
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-lg-3">
+                <strong>Dificuldade</strong> <i class="fa fa-pencil-square-o pointer" aria-hidden="true"
+                                                ng-click="difficultyEdit = (difficultyEdit) ? false : true"></i>
+                <br>
+                <div ng-show="!difficultyEdit" ng-if="question.manualDifficulty == null || question.manualDifficulty == -1" class="no-topic" style="color: brown">
+                    Nenhuma dificuldade cadastrada
+                </div>
+                <div ng-show="!difficultyEdit" ng-if="question.manualDifficulty != null || question.manualDifficulty != -1">
+                    {{textDifficulty[question.manualDifficulty]}}
+                </div>
+                <div ng-show="difficultyEdit">
+                    <br>
+                    <select class="form-control" ng-model="originQuestion.manualDifficulty" ng-change="changeDifficulty()">
+                        <option ng-selected="!originQuestion.manualDifficulty" value="-1">Sem dificuldade cadastrada</option>
+                        <option ng-selected="originQuestion.manualDifficulty == 0" value="0">Fácil</option>
+                        <option ng-selected="originQuestion.manualDifficulty == 1" value="1">Médio</option>
+                        <option ng-selected="originQuestion.manualDifficulty == 2" value="2">Difícil</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <strong>Fonte</strong> <i class="fa fa-pencil-square-o pointer" aria-hidden="true"
+                                          ng-click="fontEdit = (fontEdit) ? false : true"></i>
+                <br>
+                <div ng-show="!fontEdit" ng-if="!question.source" class="no-topic" style="color: brown">
+                    Nenhuma fonte cadastrada
+                </div>
+                <div ng-show="!fontEdit" ng-if="question.source">{{originQuestion.source}}</div>
+                <div ng-show="fontEdit">
+                    <br>
+                    <tags-input ng-focus="fontEdit" id="tag-source" ng-model="sourceSelected" placeholder="Digite a fonte desejada"
+                                max-tags="1" on-tag-added="changeSource($tag)" enable-editing-last-tag="true">
+                        <auto-complete source="searchSource($query)"></auto-complete>
+                    </tags-input>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div ng-show="habilityEdit" ng-class="habilityEdit ? 'col-lg-2' : ''">
+                <strong>Competências</strong>
+                <br>
+                <br>
+                <select class="form-control" ng-model="competence">
+                    <option value="all">Todas as habilidades</option>
+                    <option ng-repeat="competence in competences track by $index" value="{{$index}}">
+                        {{competence.name + ' - ' + competence.description}}
+                    </option>
+                </select>
+
+            </div>
+            <div ng-class="habilityEdit ? 'col-lg-8' : 'col-lg-10'">
+                <strong>Habilidades</strong> <i class="fa fa-pencil-square-o pointer" aria-hidden="true"
+                                                ng-click="habilityEdit = (habilityEdit) ? false : true"></i>
+                <br>
+                <br>
+                <select ng-show="habilityEdit" class="form-control" ng-change="addSkill()" ng-model="skill">
+                    <option ng-repeat="skill in competences[competence].skills | orderBy:'id' track by $index " value="{{$index}}">
+                        {{skill.name + ' - ' + skill.description}}
+                    </option>
+                </select>
+                <div ng-repeat="ability in originQuestion.skills | orderBy:'id'">
+                    <div id="hability-{{ability.id}}" class="alert alert-success alert-dismissable alert-hability">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                                ng-click="removeSkill(ability.id, (ability.competence.id) ? ability.competence.id : ability.competence)">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{ability.name + ' - ' + ability.description}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--STATEMENT-->
+        <div class="row" style="padding-top: 40px">
+            <h4 class="col-lg-12">Enunciado</h4>
+            <div class="clearfix"></div>
+            <hr>
+            <div class="col-lg-10" style="padding-top: 10px">
+                <div ng-show="!statementEdit.value" ng-bind-html="sce.trustAsHtml(originQuestion.statement)"></div>
+                <div ng-show="statementEdit.value">
+                    <textarea  ui-tinymce="tinymceOptions" ng-model="question.statement"></textarea>
+                </div>
+            </div>
+            <div ng-show="statementEdit.value" class="col-lg-2" style="padding-top: 10px">
+                <button class="btn btn-success col-lg-12" ng-click="saveStatement()">
+                    <i class="fa fa-check" aria-hidden="true"></i> Salvar
+                </button>
+                <br>
+                <br>
+                <button class="btn btn-danger col-lg-12" ng-click="cancelEditStatement()">
+                    <i class="fa fa-times" aria-hidden="true"></i> Cancelar
+                </button>
+            </div>
+            <div ng-show="!statementEdit.value" class="col-lg-2 text-center edit-column pointer" style="padding: 10px"
+                 ng-click="statementEdit.value = (statementEdit.value) ? false : true">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                <br>
+                Editar
+            </div>
+        </div>
+        <!--ALTERNATIVES-->
+        <div class="row" style="padding-top: 40px">
+            <h4 class="col-lg-12">Alternativas</h4>
+            <div class="clearfix"></div>
+            <hr>
+            <div class="col-lg-1 text-center"><small>resposta certa</small></div>
+            <div class="col-lg-11 text-center"></div>
+            <div class="clearfix"></div>
+            <div ng-repeat="alternative in question.options track by $index" class="alternative clearfix">
+                <div class="col-lg-1 text-center" style="padding-top: 10px">
+                    <input type="radio" name="correct-answer" ng-model="question.correctAnswer" ng-value="alternative.id"
+                           ng-change="saveCorrectAnswer(alternative.id)"/>
+                </div>
+                <div class="col-lg-1 text-center" style="padding-top: 10px">
+                    <div class="box-letter-answer"
+                         style="height: 30px; width: 30px; border-radius: 6px; background-color: #2e6da4;
+                                color: white; margin: auto; padding-top: 5px; font-weight: bold"
+                         ng-if="!alternative.isRight">{{letters[$index]}}</div>
+                    <div class="right-answer" ng-if="alternative.isRight">
+                        <i style="color: #00AC7F; font-size: 40px" class="fa fa-check-circle" aria-hidden="true"></i>
+                    </div>
+                </div>
+
+                <div ng-show="!alternativesEdit[$index]" class="col-lg-8" style="padding-top: 10px">
+                    <div ng-style="alternative.id == question.correctAnswer ? {'color':'#00AC7F'} : ''"
+                         ng-bind-html="sce.trustAsHtml(alternative.item)">
+                    </div>
+                </div>
+                <div ng-if="alternativesEdit[$index]" class="col-lg-8" style="padding-top: 10px">
+                    <textarea ui-tinymce="tinymceOptions" ng-model="alternative.item"></textarea>
+                </div>
+                <div ng-show="alternativesEdit[$index]" class="col-lg-2" style="padding-top: 10px">
+                    <button class="btn btn-success col-lg-12" ng-click="saveOption($index, alternative.id)">
+                        <i class="fa fa-check" aria-hidden="true"></i> Salvar
+                    </button>
+                    <br><br>
+                    <button class="btn btn-danger col-lg-12" ng-click="cancelEditAlternative($index)">
+                        <i class="fa fa-times" aria-hidden="true"></i> Cancelar
+                    </button>
+                </div>
+                <div ng-show="!alternativesEdit[$index]" class="col-lg-2 text-center pointer alternatice-edit"
+                     ng-click="editAlternative($index)">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    <br>
+                    Editar
+                </div>
+                <div class="clearfix"></div>
+                <hr>
+            </div>
+        </div>
+        <!--RESOLUTION-->
+        <div class="row" style="padding-top: 40px">
+            <h4 class="col-lg-12">Resolução</h4>
+            <div class="clearfix"></div>
+            <hr>
+            <div ng-show="!resolutionEdit.value" class="col-lg-10" style="padding: 10px"
+                 ng-bind-html="sce.trustAsHtml(question.resolution)">
+            </div>
+            <div ng-show="resolutionEdit.value" class="col-lg-10" style="padding: 10px">
+                <textarea ui-tinymce="tinymceOptions" ng-model="question.resolution"></textarea>
+            </div>
+            <div ng-show="resolutionEdit.value" class="col-lg-2" style="padding: 10px">
+                <button class="btn btn-success col-lg-12" ng-click="saveResolution()">
+                    <i class="fa fa-check" aria-hidden="true"></i> Salvar
+                </button>
+                <br><br>
+                <button class="btn btn-danger col-lg-12" ng-click="cancelEditResolution()">
+                    <i class="fa fa-times" aria-hidden="true"></i> Cancelar
+                </button>
+            </div>
+            <div ng-show="!resolutionEdit.value" >
+                <div class="col-lg-1 text-center pointer exclude-column" style="padding: 10px"  ng-click="deleteResolution()">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    <br>
+                    Excluir
+                </div>
+                <div class="col-lg-1 text-center pointer edit-column" style="padding: 10px"
+                     ng-click="editResolution()">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    <br>
+                    Editar
+                </div>
+            </div>
+        </div>
+        <!--HINTS-->
+        <div class="row">
+            <h4 class="col-lg-12">Dicas</h4>
+            <div class="clearfix"></div>
+            <hr>
+            <div ng-repeat="hint in question.hints track by $index">
+                <div class="col-lg-1 text-center" style="padding: 10px">
+                    {{$index+1}}ª dica
+                </div>
+                <div ng-show="!numberOfHints[$index]" class="col-lg-9" style="padding: 10px" ng-bind-html="sce.trustAsHtml(hint.hint)"></div>
+                <div ng-show="numberOfHints[$index]" class="col-lg-9" style="padding: 10px">
+                    <textarea ui-tinymce="tinymceOptions" ng-model="hint.hint"></textarea>
+                </div>
+                <div ng-show="numberOfHints[$index]" class="col-lg-2" style="padding: 10px">
+                    <button class="btn btn-success col-lg-12" ng-click="saveHint($index)">
+                        <i class="fa fa-check" aria-hidden="true"></i> Salvar
+                    </button>
+                    <br><br>
+                    <button class="btn btn-danger col-lg-12" ng-click="cancelEditHint($index)">
+                        <i class="fa fa-times" aria-hidden="true"></i> Cancelar
+                    </button>
+                </div>
+                <div ng-show="!numberOfHints[$index]">
+                    <div class="col-lg-1 text-center pointer exclude-column" style="padding: 10px" ng-click="removeHint($index)">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                        <br>
+                        Excluir
+                    </div>
+                    <div class="col-lg-1 text-center pointer edit-column" style="padding: 10px"
+                         ng-click="editHint($index)">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        <br>
+                        Editar
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="col-lg-12 text-center" style="margin-bottom: 20px">
+                <button ng-click="addHintToQuestion()" class="btn btn-success">adicionar dica</button>
+            </div>
+        </div>
+    </div>
+</div>

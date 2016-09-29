@@ -1,0 +1,44 @@
+#fiscal-profile{
+  min-height: 100%;
+  background-color: #EEEEEE;
+  .page-title {
+    font-size: 50px;
+    font-weight: 900;
+    margin: 40px;
+  }
+
+  .btn-back{
+    text-align: left;
+    font-size: 16px;
+  }
+
+  .btn-back:hover {
+    color: #286090;
+  }
+
+  .form-control {
+    font-weight: 700;
+    border-left: 0;
+  }
+
+  .form-control:focus {
+    border-color: #ccc;
+    box-shadow: none;
+  }
+
+  .clb-btn{
+    width: 180px;
+    border-radius: 30px;
+    height: 40px;
+  }
+
+  .clb-form-btn{
+    text-align: center;
+    padding: 15px;
+  }
+
+  label {
+    font-weight: 400;
+    margin-top: 10px;
+  }
+}

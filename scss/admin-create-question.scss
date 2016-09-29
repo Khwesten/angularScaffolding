@@ -1,0 +1,28 @@
+#adm-create-question {
+  min-height: 100%;
+  background-color: #EEEEEE;
+
+  .btn-register{ background-color: #EEE; border-radius: 30px; margin-bottom: 20px }
+  .btn-register:hover{ background-color: #CCC !important; color: #FFF; }
+
+  .container {
+    .view-statement { height: 100px; width: 100px; background-color: #00AC7F; border-radius: 50%; text-align: center; color: white; padding-top: 15px; margin: 50px auto }
+    .alternatives {
+      margin-top: 20px;
+      .letter {
+        padding: 12px; border-radius: 50%; background-color: #00AC7F; height: 50px; width: 50px; color: white; font-weight: bold; font-size: 18px;
+      }
+    }
+
+    .col-lg-12 {
+      padding: 20px;
+      background-color: white;
+      .col-lg-4 {
+      }
+    }
+    h1 {
+      margin: 40px;
+      text-align: center;
+    }
+  }
+}

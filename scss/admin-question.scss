@@ -1,0 +1,42 @@
+#adm-question {
+  min-height: 100%;
+  background-color: #EEEEEE;
+
+  .btn-register{ background-color: #EEE; border-radius: 30px; margin-bottom: 20px }
+  .btn-register:hover{ background-color: #CCC !important; color: #FFF; }
+
+  .fa-check-circle { color: green }
+  .fa-times-circle { color: darkred }
+  .result-questions { padding: 10px; p { font-size: 12px; font-weight: bold } }
+  .result-questions:hover {
+    background-color: #e9ebec;
+
+    .gradient-statement {
+      /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,727272+100&0+0,0.65+100 */
+      background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(233,235,236,1) 100%); /* FF3.6-15 */
+      background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(233,235,236,1) 100%); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(233,235,236,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#e9ebec',GradientType=0 ); /* IE6-9 */
+      height: 15px; width: 100%; position: relative; z-index: 3; top: -15px;
+    }
+  }
+
+  tags-input .host {margin-top: 0}
+
+  .container {
+    h1 {
+      margin: 40px;
+      text-align: center;
+    }
+
+    .gradient-statement {
+      /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,727272+100&0+0,0.65+100 */
+      background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
+      background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6727272',GradientType=0 ); /* IE6-9 */
+      height: 15px; width: 100%; position: relative; z-index: 3; top: -15px;
+    }
+
+  }
+}

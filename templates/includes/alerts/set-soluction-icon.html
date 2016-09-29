@@ -1,0 +1,14 @@
+<div id="set-soluction-icon">
+	<div class="modal-body">
+		<div class="row text-center">
+			<div class="col-md-2" ng-repeat="i in icons" ng-click="project.icon = i.icon">
+			    <a href="" class="thumbnail" style="background: rgba(204, 204, 204, 0.49);">
+						<img ng-src="{{i.icon}}" style="-webkit-filter: opacity(100%);filter: opacity(30%);"/>
+			    </a>
+			</div>
+		</div>
+		<div class="text-center">
+			<button type="button" class="btn btn-create" ng-click="$dismiss();">Salvar</button>
+		</div>
+	</div>
+</div>
